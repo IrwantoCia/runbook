@@ -1,0 +1,10 @@
+.env
+*.db
+*.db-shm
+*.db-wal
+/build/
+/web/node_modules/
+/web/dist/*
+!/web/dist/.gitkeep
+/cmd/runbook/web/dist/*
+!/cmd/runbook/web/dist/.gitkeep
