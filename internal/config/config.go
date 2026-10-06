@@ -1,6 +1,7 @@
 package config
 
 import (
+	"net"
 	"os"
 	"strconv"
 
@@ -15,13 +16,15 @@ type Config struct {
 
 func Load() Config {
 	_ = godotenv.Load()
+	host := env("ADDR", "127.0.0.1")
+	port := env("APP_PORT", "8080")
 	secure, _ := strconv.ParseBool(env("COOKIE_SECURE", "true"))
 	hours, err := strconv.Atoi(env("SESSION_TTL_HOURS", "720"))
 	if err != nil || hours < 1 {
 		hours = 720
 	}
 	return Config{
-		Addr: env("ADDR", "127.0.0.1:8080"), DBPath: env("DB_PATH", "./runbook.db"),
+		Addr: net.JoinHostPort(host, port), DBPath: env("DB_PATH", "./runbook.db"),
 		CookieSecure: secure, SessionTTLHours: hours,
 		SeedAdminEmail: env("SEED_ADMIN_EMAIL", ""), SeedAdminPassword: env("SEED_ADMIN_PASSWORD", ""),
 	}

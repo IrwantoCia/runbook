@@ -1,4 +1,4 @@
-.PHONY: build dev frontend backend test vet clean run
+.PHONY: build dev frontend backend test vet clean run docker-build docker-up docker-down docker-logs docker-ps deploy
 
 build: frontend
 	mkdir -p build
@@ -30,3 +30,21 @@ clean:
 
 run: build
 	./build/runbook
+
+docker-build:
+	docker compose build
+
+docker-up:
+	docker compose up -d --build
+
+docker-down:
+	docker compose down
+
+docker-logs:
+	docker compose logs -f runbook
+
+docker-ps:
+	docker compose ps
+
+# Deploy/refresh on the server: rebuild image and (re)start detached.
+deploy: docker-up

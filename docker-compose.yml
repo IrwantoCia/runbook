@@ -1,0 +1,29 @@
+services:
+  runbook:
+    container_name: runbook
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      ADDR: 0.0.0.0
+      APP_PORT: ${APP_PORT:-8080}
+      DB_PATH: /data/runbook.db
+    volumes:
+      - runbook-data:/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+    networks:
+      - archnet
+
+volumes:
+  runbook-data:
+
+networks:
+  # archnet is external; on local machines, run `docker network create archnet` once.
+  archnet:
+    external: true

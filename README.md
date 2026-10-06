@@ -15,4 +15,4 @@ For frontend hot reload, run `make dev` in one terminal and `cd web && npm run d
 
 Session endpoints use an HttpOnly, SameSite=Lax cookie. Create API keys under **API keys**; the secret is shown only once. Send it as `Authorization: Bearer rb_…` to `/api/v1/runbooks`. Public endpoints return published content only.
 
-Run `make test` and `make vet` for checks. Configure `ADDR`, `DB_PATH`, `COOKIE_SECURE`, `SESSION_TTL_HOURS`, `SEED_ADMIN_EMAIL`, and `SEED_ADMIN_PASSWORD` through environment variables or `.env`.
+Run `make test` and `make vet` for checks. Configure `ADDR` (host only), `APP_PORT`, `DB_PATH`, `COOKIE_SECURE`, `SESSION_TTL_HOURS`, `SEED_ADMIN_EMAIL`, and `SEED_ADMIN_PASSWORD` through environment variables or `.env`.

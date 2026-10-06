@@ -1,0 +1,17 @@
+.git
+build/
+web/node_modules/
+web/dist/
+cmd/runbook/web/dist/
+*.db
+*.db-shm
+*.db-wal
+.env
+_search
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*.tmp
+*~
