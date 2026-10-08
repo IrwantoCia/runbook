@@ -5,12 +5,15 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
-    # Secrets are injected via `bws run`; non-secret config here.
+    # Non-secret config here. Secrets (SEED_ADMIN_*) are injected by `bws run`
+    # and must be referenced below so Compose passes them into the container.
     # APP_PORT defaults to 8081, override by exporting APP_PORT (e.g. in token.env).
     environment:
       ADDR: 0.0.0.0
       APP_PORT: ${APP_PORT:-8081}
       DB_PATH: /data/runbook.db
+      SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL:-}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-}
     volumes:
       - runbook-data:/data
     deploy:
