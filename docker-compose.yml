@@ -5,11 +5,11 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
-    env_file:
-      - .env
+    # Secrets are injected via `bws run`; non-secret config here.
+    # APP_PORT defaults to 8081, override by exporting APP_PORT (e.g. in token.env).
     environment:
       ADDR: 0.0.0.0
-      APP_PORT: ${APP_PORT:-8080}
+      APP_PORT: ${APP_PORT:-8081}
       DB_PATH: /data/runbook.db
     volumes:
       - runbook-data:/data

@@ -1,5 +1,8 @@
 .PHONY: build dev frontend backend test vet clean run docker-build docker-up docker-down docker-logs docker-ps deploy
 
+# Bitwarden Secrets Manager access token file (chmod 600). See README for setup.
+BWS_ENV := $(HOME)/.config/bws/token.env
+
 build: frontend
 	mkdir -p build
 	CGO_ENABLED=0 go build -o ./build/runbook ./cmd/runbook
@@ -35,7 +38,8 @@ docker-build:
 	docker compose build
 
 docker-up:
-	docker compose up -d --build
+	@test -f $(BWS_ENV) || { echo "missing $(BWS_ENV) - cannot inject secrets"; exit 1; }
+	. $(BWS_ENV) && bws run -- docker compose up -d --build
 
 docker-down:
 	docker compose down
